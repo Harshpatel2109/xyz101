@@ -1,3 +1,4 @@
+package practicals;
 import java.util.Scanner;
 class DataItem 
 {
@@ -45,7 +46,7 @@ public class caesar_cipheer
         Scanner scanner = new Scanner(System.in);
         while (true) 
         {
-            System.out.print("Do you want to create a new data item or retrieve an existing one? (create/retrieve/exit): ");
+            System.out.print("Do you want to create a new data item or retrieve or view list? (create/retrieve/viewlist/exit): ");
             String action = scanner.nextLine();
             if (action.equalsIgnoreCase("exit")) 
             {
@@ -81,7 +82,7 @@ public class caesar_cipheer
             } 
             else if (action.equalsIgnoreCase("retrieve")) 
             {
-                System.out.print("Enter a key name to retrieve its encoded value: ");
+                System.out.print("Enter a key name to retrieve its decoded value: ");
                 String key = scanner.nextLine();
                 DataItem foundItem = null;
                 for (int i = 0; i < itemCount; i++) 
@@ -94,24 +95,41 @@ public class caesar_cipheer
                 }
                 if (foundItem != null) 
                 {
-                    System.out.println("Encoded value for '" + key + "': " + foundItem.getEncodedValue());
-
-                    System.out.print("Do you want to see the decoded text? (yes/no): ");
-                    String viewChoice = scanner.nextLine();
-
-                    if (viewChoice.equalsIgnoreCase("yes")) 
-                    {
-                        System.out.println("Decoded value for '" + key + "': " + foundItem.getDecodedValue());
-                    }
+                    System.out.println("Decoded value for '" + key + "': " + foundItem.getDecodedValue());
                 } 
+                        
                 else 
                 {
                     System.out.println("No data found for key '" + key + "'.");
                 }
             } 
+            else if (action.equalsIgnoreCase("viewlist"))
+            {
+                String pass="xyz";
+                System.out.println("enter password:");
+                String input=scanner.nextLine();
+                if(pass.equals(input))
+                {
+                    if(itemCount==0)
+                    {
+                        System.out.println("list is empty!");
+                        continue;
+                    }
+                    for(int i=0; i<itemCount ;i++)
+                    {
+                        System.out.println(dataItems[i].key+" - \""+dataItems[i].getEncodedValue()+"\"\n");                           
+                    }
+                    continue;
+                }
+                else
+                {
+                    System.out.println("password is incorrect!!");
+                    continue;
+                }
+            }
             else 
             {
-                System.out.println("Invalid action. Please choose 'create', 'retrieve', or 'exit'.");
+                System.out.println("Invalid action. Please choose 'create', 'retrieve', 'viewlist', or 'exit'.");
             }
         }
         scanner.close();
